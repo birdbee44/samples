@@ -10,3 +10,16 @@ Before doing anything with the file, it might be a good idea to run the file com
 # Cowire
 The cowrie samples are from my Cowrie Honeypot. Heres is the link if you want to set up your own.
 https://github.com/cowrie/cowrie
+
+
+# Set up an environment
+https://remnux.org/
+Remnux is a good linux distro that can be used to safetely look at samples. Plus it has all the needed tools built in.
+Using Linux is a good idea when reversing malware so the user does not accidently double click the file.
+But the analyzer could also use a Windows VM. 
+
+When looking at malware, its also a good idea to set up a environment that is not connected to any other hosts or even the internet. This is so that it can not spread to other hosts. Also its a good idea to get the hash of the ile every once in awhile. This is done to make sure that the malware sample has not changed. File hashs help other researchers identify the same sample. Its a good idea to use SHA1 when getting the hash. But a md5 sum will also work. 
+
+To get the hash of a file. The following commands can be used.
+Get sha256sum: ```sha256sum file_name```
+Get md5sum:  ```md5sum fiile_name```
