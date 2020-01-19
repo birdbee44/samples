@@ -20,6 +20,10 @@ But the analyzer could also use a Windows VM.
 
 When looking at malware, its also a good idea to set up a environment that is not connected to any other hosts or even the internet. This is so that it can not spread to other hosts. Also its a good idea to get the hash of the ile every once in awhile. This is done to make sure that the malware sample has not changed. File hashs help other researchers identify the same sample. Its a good idea to use SHA1 when getting the hash. But a md5 sum will also work. 
 
-To get the hash of a file. The following commands can be used.
-Get sha256sum: ```sha256sum file_name```
-Get md5sum:  ```md5sum fiile_name```
+To get the hash of a file. The following commands can be used.<br>
+Get sha256sum: ```sha256sum file_name```<br>
+Get md5sum:  ```md5sum file_name```<br>
+Get sha1sum: ```sha1sum file_name```
+<br>
+If one little thing is changed in the file, the hash will be different. But keep in mind that recent studies have proven that attackers could create two different files with the same digest. <br>
+https://shattered.it/
