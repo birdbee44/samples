@@ -13,7 +13,7 @@ https://github.com/cowrie/cowrie
 
 
 # Set up an environment
-https://remnux.org/
+https://remnux.org/<br>
 Remnux is a good linux distro that can be used to safetely look at samples. Plus it has all the needed tools built in.
 Using Linux is a good idea when reversing malware so the user does not accidently double click the file.
 But the analyzer could also use a Windows VM. 
